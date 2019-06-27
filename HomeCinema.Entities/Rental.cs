@@ -6,12 +6,7 @@ namespace HomeCinema.Entities
 {
    public class Rental:IEntityBase
     {
-        public Rental()
-        {
-
-        }
-
-        public int Id { get; set; }
+               public int Id { get; set; }
         public int CustomerId { get; set; }
         public int StockId { get; set; }
 
