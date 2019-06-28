@@ -8,7 +8,7 @@ namespace HomeCinema.Entities
     {
         public User()
         {
-            UserRoles = new List<UserRoles>();
+            UserRoles = new List<UserRole>();
         }
         public int Id { get; set; }
         public string UserName { get; set; }
@@ -17,6 +17,6 @@ namespace HomeCinema.Entities
         public string Salt { get; set; }
         public bool IsLocked { get; set; }
         public DateTime DateCreated { get; set; }
-        public virtual ICollection<UserRoles> UserRoles { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

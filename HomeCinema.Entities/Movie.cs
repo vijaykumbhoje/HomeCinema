@@ -23,7 +23,9 @@ namespace HomeCinema.Entities
         public string Writer { get; set; }
 
         public string Producer { get; set; }
-              
+
+        public string Director { get; set; }
+
         public int GenreId { get; set; }
 
         public DateTime  ReleaseDate { get; set; }

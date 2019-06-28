@@ -24,6 +24,7 @@ namespace HomeCinema.Entities
         public Guid UniqueKey { get; set; }
 
         public string Mobile { get; set; }
+        public string Email { get; set; }
 
         public DateTime RegistrationDate { get; set; }
 

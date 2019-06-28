@@ -12,14 +12,18 @@ namespace HomeCinema.Entities
         }
 
         public int Id { get; set; }
+
         public int CustomerId { get; set; }
+
+        public virtual Stock Stock { get; set; }
+
         public int StockId { get; set; }
 
         public DateTime RentalDate { get; set; }
 
         public DateTime ReturnDate { get; set; }
 
-        public byte Status { get; set; }
+        public string Status { get; set; }
 
     }
 }
