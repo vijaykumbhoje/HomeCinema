@@ -20,6 +20,7 @@ namespace HomeCinema.Entities
         public string Image { get; set; }
 
         public string Writer { get; set; }
+        public string Director { get; set; }
 
         public string Producer { get; set; }
 
