@@ -7,10 +7,6 @@ namespace HomeCinema.Entities
   public class Customer :IEntityBase
     {
 
-        public Customer()
-        {
-
-        }
         public int Id { get; set; }
 
         public string FirstName { get; set; }
