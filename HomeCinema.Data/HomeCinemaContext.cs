@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using HomeCinema.Entities;
+using HomeCinema.Data.Configurations;
 
 namespace HomeCinema.Data
 {
@@ -35,5 +37,24 @@ namespace HomeCinema.Data
         public IDbSet<Error> ErrorSet { get; set; }
 
         #endregion
+
+        public virtual void Commit()
+        {
+            base.SaveChanges();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Configurations.Add(new CustomerConfiguration());
+            modelBuilder.Configurations.Add(new MovieConfiguration());
+            modelBuilder.Configurations.Add(new GenreConfiguration());
+            modelBuilder.Configurations.Add(new StockConfiguration());
+            modelBuilder.Configurations.Add(new RentalConfiguration());
+            modelBuilder.Configurations.Add(new RoleConfiguration());
+            modelBuilder.Configurations.Add(new UserRoleConfiguration());
+            modelBuilder.Configurations.Add(new UserConfiguration());   
+        }
     }
 }
