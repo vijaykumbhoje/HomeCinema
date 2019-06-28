@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.Entity;
-using System.ComponentModel.DataAnnotations;
+
 
 namespace HomeCinema.Entities
 {
