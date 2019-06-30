@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HomeCinema.Entities;
 
+
 namespace HomeCinema.Data.Repositories
 {
     public interface IEntityBaseRepository<T> where T: class, IEntityBase, new ()  
