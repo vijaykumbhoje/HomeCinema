@@ -22,7 +22,8 @@
         }
 
         function register(user, completed) {
-            apiService.post('/api/account/register', user,
+            apiService.post('/api/account/register', 
+                user,
                 completed,
                 registrationFailed);
         }

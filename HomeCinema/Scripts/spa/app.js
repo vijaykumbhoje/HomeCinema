@@ -4,7 +4,7 @@
     angular.module('homeCinema', ['common.core', 'common.ui'])
         .config(config)
         .run(run);
-
+        
     config.$inject = ['$routeProvider'];
     function config($routeProvider) {
         $routeProvider
@@ -61,7 +61,7 @@
         if ($rootScope.repository.loggedUser) {
             $http.defaults.headers.common['Authorization'] = $rootScope.repository.loggedUser.authdata;
         }
-
+            
         $(document).ready(function () {
             $(".fancybox").fancybox({
                 openEffect: 'none',
