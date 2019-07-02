@@ -39,16 +39,6 @@ namespace HomeCinema.Controllers
                 response = request.CreateResponse(HttpStatusCode.OK, stocksVm);
                 return response;
             });
-        }
-
-        [HttpPost]
-        [Route("rent/{customerId:int}/{stockId:int}")]
-        public HttpResponseMessage Rent(HttpRequestMessage request, int customerId, int stockId)
-        {
-            return CreateHttpResponse(request, () => {
-
-                    
-            });
-        }
+        }       
     }
 }

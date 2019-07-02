@@ -1,4 +1,5 @@
-﻿using HomeCinema.Data.Infrastructure;
+﻿using AutoMapper;
+using HomeCinema.Data.Infrastructure;
 using HomeCinema.Data.Repositories;
 using HomeCinema.Entities;
 using HomeCinema.Infrastructure.Core;
@@ -148,6 +149,47 @@ namespace HomeCinema.Controllers
                 return response;
             });
         }
-        
+
+        [HttpPost]
+        [Route("rent/{customerId:int}/{stockId:int}")]
+        public HttpResponseMessage Rent(HttpRequestMessage request, int customerId, int stockId)
+        {
+            return CreateHttpResponse(request, () => {
+
+                HttpResponseMessage response = null;
+
+                var customer = _customerRepositories.GetSingle(customerId);
+                var stock = _stockRepositories.GetSingle(stockId);
+                if(customer==null || stock==null)
+                {
+                    response = request.CreateErrorResponse(HttpStatusCode.NoContent, "Invalid Customer or Stock");
+                }
+                else
+                {
+                    if(stock.isAvailble)
+                    {
+                        Rental _rental = new Rental()
+                        {
+                            CustomerId = customerId,
+                            StockId = stockId,
+                            RentalDate = DateTime.Now,
+                            Status = "Borrowed"
+                        };
+                        _rentalRepositories.Add(_rental);
+                        stock.isAvailble = false;
+                        _unitOfWork.Commit();
+                        RentalViewModel rentalvm = Mapper.Map<Rental, RentalViewModel>(_rental);
+                        response = request.CreateResponse(HttpStatusCode.OK, rentalvm);
+
+                    }
+                    else
+                    {
+                        response = request.CreateResponse(HttpStatusCode.BadRequest, "Selected Stock not available anymore");
+                    }
+                }
+                return response;
+            });
+        }
+
     }
 }

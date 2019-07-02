@@ -19,6 +19,8 @@ namespace HomeCinema.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validator = new StockViewModelValidator();
+            var result = validator.Validate(this);
+            return result.Errors.Select(item => new ValidationResult(item.ErrorMessage, new[] { item.PropertyName }));
         }
     }
 }
