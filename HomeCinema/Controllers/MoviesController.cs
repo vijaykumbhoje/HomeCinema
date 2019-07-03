@@ -36,7 +36,7 @@ namespace HomeCinema.Controllers
                 HttpResponseMessage response = null;
                 var movies = _moviesRepository.GetAll().OrderByDescending(m => m.ReleaseDate).Take(6).ToList();
                 IEnumerable<MovieViewModel> moviesVM = Mapper.Map<IEnumerable<Movie>, IEnumerable<MovieViewModel>>(movies);
-                response = request.CreateResponse<IEnumerable<MovieViewModel>>(HttpStatusCode.OK, moviesVM);
+                response = request.CreateResponse(HttpStatusCode.OK, moviesVM);
                 return response;
             });
         }

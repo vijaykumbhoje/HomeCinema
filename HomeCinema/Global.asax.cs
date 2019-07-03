@@ -19,7 +19,7 @@ namespace HomeCinema
             var config = GlobalConfiguration.Configuration;           
             
             AreaRegistration.RegisterAllAreas();
-            //WebApiConfig.Register(config);
+          //  WebApiConfig.Register(config);
             Bootstrapper.Run();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configuration.EnsureInitialized();

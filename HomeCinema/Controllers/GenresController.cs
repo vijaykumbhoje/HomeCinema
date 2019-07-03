@@ -16,12 +16,12 @@ namespace HomeCinema.Controllers
 {
     [Authorize(Roles ="Admin")]
     [RoutePrefix("api/genres")]
-    public class GenreController : ApiControllerBase
+    public class GenresController : ApiControllerBase
     {
 
         private readonly IEntityBaseRepository<Genre> _genreRepository;
 
-        public GenreController(IEntityBaseRepository<Genre> genreRepository, IEntityBaseRepository<Error> _errorRepository, UnitOfWork _unitOfWork)
+        public GenresController(IEntityBaseRepository<Genre> genreRepository, IEntityBaseRepository<Error> _errorRepository, UnitOfWork _unitOfWork)
             : base (_errorRepository, _unitOfWork)
         {
             _genreRepository = genreRepository;

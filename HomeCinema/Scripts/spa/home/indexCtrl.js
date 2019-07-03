@@ -15,29 +15,37 @@
         $scope.loadData = loadData;
 
         function loadData() {
-            apiService.get('/api/movies/latest', null,
+           
+            apiService.get("#/api/movies/latest", null,
                 moviesLoadCompleted,
                 moviesLoadFailed);
 
-            apiService.get("/api/genres/", null,
+            apiService.get("#/api/genres", null,
                 genresLoadCompleted,
                 genresLoadFailed);
         }
 
         function moviesLoadCompleted(result) {
             $scope.latestMovies = result.data;
+           
+          
             $scope.loadingMovies = false;
         }
 
         function genresLoadFailed(response) {
+           
+            
             notificationService.displayError(response.data);
         }
 
         function moviesLoadFailed(response) {
+
             notificationService.displayError(response.data);
+          
         }
 
         function genresLoadCompleted(result) {
+           
             var genres = result.data;
             Morris.Bar({
                 element: "genres-bar",
@@ -49,11 +57,7 @@
                 xLabelAngle: 55,
                 hideHover: "auto",
                 resize: 'true'
-            });
-            //.on('click', function (i, row) {
-            //    $location.path('/genres/' + row.ID);
-            //    $scope.$apply();
-            //});
+            });          
 
             $scope.loadingGenres = false;
         }
