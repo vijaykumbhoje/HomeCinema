@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace HomeCinema.Data.Extensions
 {
-    public static class CustomerExtension 
+    public static class CustomerExtensions 
     {
+        public static bool UserExists(this IEntityBaseRepository<Customer> customerRepository, string email, string identityCard)
+        {
+            bool _userExists = false;
+            _userExists = customerRepository.GetAll().Any(c => c.Email.ToLower() == email || c.IdentityCard.ToLower() == identityCard);
+            return _userExists;
+        }
         public static string GetCustomerFullName(this IEntityBaseRepository<Customer> customerRepository, int customerId)
         {
             var customer = customerRepository.GetSingle(customerId);

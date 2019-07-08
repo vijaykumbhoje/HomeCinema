@@ -8,20 +8,10 @@ using HomeCinema.Models;
 
 namespace HomeCinema.Mappings
 {
-    public class DomainToViewModelProfile : Profile
+    public class DomainToViewModelMappingProfile : Profile
     {
 
-        public DomainToViewModelProfile()
-        {
-            CreateMap<Movie, MovieViewModel>();
-        }
-        public override string ProfileName
-        {
-            get { return "DomainToViewModelMappings"; }
-        }
-
-        protected void Configure()
-
+        public DomainToViewModelMappingProfile()
         {
             CreateMap<Movie, MovieViewModel>()
                     .ForMember(vm => vm.Genre, map => map.MapFrom(m => m.Genre.Name))
@@ -36,7 +26,11 @@ namespace HomeCinema.Mappings
             CreateMap<Customer, CustomerViewModel>();
             CreateMap<Stock, StockViewModel>();
             CreateMap<Rental, RentalViewModel>();
-                
         }
+        public override string ProfileName
+        {
+            get { return "DomainToViewModelMappings"; }
+        }
+
     }
 }

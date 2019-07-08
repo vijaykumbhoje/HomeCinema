@@ -12,7 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 
 namespace HomeCinema.Controllers
 {
@@ -30,6 +30,7 @@ namespace HomeCinema.Controllers
 
         [AllowAnonymous]
         [Route("authenticate")]
+        [HttpPost]
         public HttpResponseMessage Login(HttpRequestMessage request, LoginViewModel user)
         {
             return CreateHttpResponse(request, () => 
@@ -64,7 +65,7 @@ namespace HomeCinema.Controllers
                 HttpResponseMessage response = null;
                 if(ModelState.IsValid)
                 {
-                    User _user = _membershipService.CreateUser(user.Username, user.Email, user.Password, new int[] { 1 });
+                    User _user = _membershipService.CreateUser(user.Username, user.Password, user.Email, new int[] { 1 });
                     if(_user !=null)
                     {
                         response = request.CreateResponse(HttpStatusCode.OK, new { success = true });

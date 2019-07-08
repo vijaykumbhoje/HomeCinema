@@ -15,6 +15,7 @@
         }
 
         function registerCompleted(result) {
+            
             if (result.data.success) {
                 membershipService.saveCredentials($scope.user);
                 notificationService.displaySuccess('Hello ' + $scope.user.username);
@@ -22,6 +23,7 @@
                 $location.path('/');
             }
             else {
+               
                 notificationService.displayError('Registration failed. Try again.');
             }
         }

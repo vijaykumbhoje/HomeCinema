@@ -14,32 +14,29 @@
         $scope.latestMovies = [];
         $scope.loadData = loadData;
 
-        function loadData() {
-           
-            apiService.get("#/api/movies/latest", null,
+        function loadData() {           
+            apiService.get('/api/movies/latest', null,
                 moviesLoadCompleted,
                 moviesLoadFailed);
 
-            apiService.get("#/api/genres", null,
+            apiService.get("/api/genres", null,
                 genresLoadCompleted,
                 genresLoadFailed);
         }
 
         function moviesLoadCompleted(result) {
-            $scope.latestMovies = result.data;
-           
           
+            $scope.latestMovies = result.data;                   
             $scope.loadingMovies = false;
         }
 
-        function genresLoadFailed(response) {
+        function genresLoadFailed(response) {           
            
-            
             notificationService.displayError(response.data);
         }
 
         function moviesLoadFailed(response) {
-
+           
             notificationService.displayError(response.data);
           
         }

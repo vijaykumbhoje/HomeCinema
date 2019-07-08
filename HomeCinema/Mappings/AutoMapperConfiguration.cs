@@ -10,10 +10,11 @@ namespace HomeCinema.Mappings
     {
         public static void Configure()
         {
-            Mapper.Initialize(x =>             
-            {
-                x.AddProfile<DomainToViewModelProfile>();
+#pragma warning disable CS0618 // Type or member is obsolete
+            Mapper.Initialize(x => {
+                x.AddProfile<DomainToViewModelMappingProfile>();
             });
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
     }

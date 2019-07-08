@@ -7,13 +7,13 @@ namespace HomeCinema.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Initial_Migration : IMigrationMetadata
+    public sealed partial class changeddatabase : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial_Migration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(changeddatabase));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906280857545_Initial_Migration"; }
+            get { return "201907080633489_changeddatabase"; }
         }
         
         string IMigrationMetadata.Source

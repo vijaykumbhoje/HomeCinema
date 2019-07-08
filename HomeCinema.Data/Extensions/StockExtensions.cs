@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeCinema.Data.Extensions
 {
-    public static class StockExtension
+    public static class StockExtensions
     {
         public static IEnumerable<Stock> GetAvailableItems(this IEntityBaseRepository<Stock> stockRepository, int movieId)
         {

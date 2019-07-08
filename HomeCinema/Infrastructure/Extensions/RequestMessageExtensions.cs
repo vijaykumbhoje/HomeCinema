@@ -25,5 +25,10 @@ namespace HomeCinema.Infrastructure.Extensions
             TService service = (TService)dependencyScope.GetService(typeof(TService));
             return service;
         }
+
+        internal static IEntityBaseRepository<T> GetDataRepository<T>(this HttpRequestMessage request) where T : class, IEntityBase, new()
+        {
+            return request.GetService<IEntityBaseRepository<T>>();
+        }
     }
 }

@@ -7,10 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using System.Net.Http;
 using AutoMapper;
 using System.Net;
+using System.Web.Http;
 
 namespace HomeCinema.Controllers
 {
@@ -21,7 +21,7 @@ namespace HomeCinema.Controllers
 
         private readonly IEntityBaseRepository<Genre> _genreRepository;
 
-        public GenresController(IEntityBaseRepository<Genre> genreRepository, IEntityBaseRepository<Error> _errorRepository, UnitOfWork _unitOfWork)
+        public GenresController(IEntityBaseRepository<Genre> genreRepository, IEntityBaseRepository<Error> _errorRepository, IUnitOfWork _unitOfWork)
             : base (_errorRepository, _unitOfWork)
         {
             _genreRepository = genreRepository;
@@ -35,7 +35,7 @@ namespace HomeCinema.Controllers
                 HttpResponseMessage response = null;
                 var genre = _genreRepository.GetAll().ToList();
                 IEnumerable<GenreViewModel> genreVM = Mapper.Map<IEnumerable<Genre>, IEnumerable<GenreViewModel>>(genre);
-                response = request.CreateResponse<IEnumerable<GenreViewModel>>(HttpStatusCode.OK, genreVM);
+                response = request.CreateResponse(HttpStatusCode.OK, genreVM);
                 return response;
             });
         }
