@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeCinema.Controllers;
 
 namespace HomeCinema.Tests
 {
@@ -13,7 +14,14 @@ namespace HomeCinema.Tests
         [TestMethod]
         public void TestLogin_ShouldLoggedIn()
         {
+            //Arrange
+            var controller = new AccountController();
 
+
+            //Act
+
+
+            //Asert
         }
 
 
