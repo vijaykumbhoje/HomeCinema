@@ -17,6 +17,8 @@
         $scope.search = search;
         $scope.clearSearch = clearSearch;
 
+        $scope.search = search;
+        $scope.clearSearch = clearSearch;
         $scope.openEditDialog = openEditDialog;
 
         function search(page) {
@@ -32,7 +34,7 @@
                 }
             };
 
-            apiService.get('/api/customers/search/', config,
+                apiService.get('/api/customers/search/', config,
                 customersLoadCompleted,
                 customersLoadFailed);
         }
@@ -50,7 +52,8 @@
         }
 
         function customersLoadCompleted(result) {
-            $scope.Customers = result.data.Items;
+            alert(JSON.stringify(result));
+            $scope.Customers = result.data.Items;           
             $scope.page = result.data.Page;
             $scope.pagesCount = result.data.TotalPages;
             $scope.totalCount = result.data.TotalCount;

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 
 namespace HomeCinema.Controllers
 {
@@ -88,7 +88,7 @@ namespace HomeCinema.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("rentalhistory")]
         public HttpResponseMessage TotalRentalHistory(HttpRequestMessage request)
         {
@@ -107,7 +107,7 @@ namespace HomeCinema.Controllers
                         Image = movie.Image,
                         Rentals = GetRentalHistoryPerDates(movie.Id)
                     };
-                    if (_totalRentalHistory.TotalRental > 0)
+                    if (_totalRentalHistory.TotalRentals > 0)
                         _totalMoviesRentalHistory.Add(_totalRentalHistory);
                 }
                 response = request.CreateResponse(HttpStatusCode.OK, _totalMoviesRentalHistory);

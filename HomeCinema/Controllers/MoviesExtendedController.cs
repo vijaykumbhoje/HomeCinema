@@ -86,7 +86,7 @@ namespace HomeCinema.Controllers
                     Page = currentPage,
                     TotalCount = totalMovies,
                     TotalPages = (int)Math.Ceiling((decimal)totalMovies / currentPageSize),
-                    items = movieVm                
+                    Items = movieVm                
                 };
                 response = request.CreateResponse(HttpStatusCode.OK, pagedSet);
 

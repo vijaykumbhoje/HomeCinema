@@ -17,7 +17,8 @@
         };
         $scope.datepicker = {};
 
-        function updateCustomer() {
+        function updateCustomer()
+        {
             console.log($scope.EditedCustomer);
             apiService.post('/api/customers/update/', $scope.EditedCustomer,
                 updateCustomerCompleted,

@@ -72,7 +72,7 @@
         }
 
         function rentalHistoryLoadCompleted(result) {
-            console.log(result);
+          
             $scope.rentalHistory = result.data;
             $scope.loadingRentals = false;
         }
@@ -82,11 +82,13 @@
         }
 
         function returnMovieSucceeded(response) {
+            console.log(response);
             notificationService.displaySuccess('Movie returned to HomeCinema succeesfully');
             loadMovieDetails();
         }
 
         function returnMovieFailed(response) {
+            console.log(response);
             notificationService.displayError(response.data);
         }
 

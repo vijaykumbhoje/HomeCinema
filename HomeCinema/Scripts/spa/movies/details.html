@@ -79,7 +79,7 @@
                             <td>{{rental.RentalDate | date:'fullDate'}}</td>
                             <td ng-class="getStatusColor(rental.Status)">{{rental.Status}}</td>
                             <td class="text-center">
-                                <button ng-if="isBorrowed(rental)" type="button" class="btn btn-primary btn-xs" ng-click="returnMovie(rental.ID)">Return</button>
+                                <button ng-if="isBorrowed(rental)" type="button" class="btn btn-primary btn-xs" ng-click="returnMovie(rental.Id)">Return</button>
                             </td>
                         </tr>
                     </tbody>

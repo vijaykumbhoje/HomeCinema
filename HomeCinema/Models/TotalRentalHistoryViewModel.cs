@@ -12,7 +12,7 @@ namespace HomeCinema.Models
 
         public string Image { get; set; }
 
-        public int TotalRental
+        public int TotalRentals
         {
             get { return Rentals.Count; }
 

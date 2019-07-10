@@ -49,8 +49,8 @@
     <Reference Include="MockData, Version=0.0.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MockData.0.0.6\lib\net40\MockData.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -58,11 +58,14 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Tracing, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Tracing.5.2.7\lib\net45\System.Web.Http.Tracing.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -95,6 +98,18 @@
     <Compile Include="Migrations\201907080633489_changeddatabase.Designer.cs">
       <DependentUpon>201907080633489_changeddatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907100752175_MakeRFentalDateOptional.cs" />
+    <Compile Include="Migrations\201907100752175_MakeRFentalDateOptional.Designer.cs">
+      <DependentUpon>201907100752175_MakeRFentalDateOptional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907100801300_MakeRentalDateOptional.cs" />
+    <Compile Include="Migrations\201907100801300_MakeRentalDateOptional.Designer.cs">
+      <DependentUpon>201907100801300_MakeRentalDateOptional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907101026426_changedTotalRentals.cs" />
+    <Compile Include="Migrations\201907101026426_changedTotalRentals.Designer.cs">
+      <DependentUpon>201907101026426_changedTotalRentals.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EntityBaseRepository.cs" />
@@ -117,6 +132,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907080633489_changeddatabase.resx">
       <DependentUpon>201907080633489_changeddatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907100752175_MakeRFentalDateOptional.resx">
+      <DependentUpon>201907100752175_MakeRFentalDateOptional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907100801300_MakeRentalDateOptional.resx">
+      <DependentUpon>201907100801300_MakeRentalDateOptional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907101026426_changedTotalRentals.resx">
+      <DependentUpon>201907101026426_changedTotalRentals.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,8 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
+
 
 namespace HomeCinema.Controllers
 {
@@ -90,7 +90,7 @@ namespace HomeCinema.Controllers
             return listHistory;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("{id:int}/rentalhistory")]
         public HttpResponseMessage RentalHistory(HttpRequestMessage request, int Id)
         {
@@ -103,7 +103,7 @@ namespace HomeCinema.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("rentalhistory")]
         public HttpResponseMessage TotalRentalHistory(HttpRequestMessage request)
         {
@@ -120,7 +120,7 @@ namespace HomeCinema.Controllers
                         Image= movie.Image,
                         Rentals = GetRentalHistoryPerDates(movie.Id)
                     };
-                    if (_totalRentalHistory.TotalRental > 0)
+                    if (_totalRentalHistory.TotalRentals > 0)
                         _totalMoviesRentalHistory.Add(_totalRentalHistory);
                 }
                 response = request.CreateResponse(HttpStatusCode.OK, _totalMoviesRentalHistory);
@@ -129,7 +129,7 @@ namespace HomeCinema.Controllers
         }
 
         [HttpPost]
-        [Route("return/{rentalId:int}")]
+        [Route("return/{Id:int}")]
         public HttpResponseMessage Return(HttpRequestMessage request, int Id)
         {
             return CreateHttpResponse(request, () => {
@@ -158,7 +158,6 @@ namespace HomeCinema.Controllers
             return CreateHttpResponse(request, () => {
 
                 HttpResponseMessage response = null;
-
                 var customer = _customerRepositories.GetSingle(customerId);
                 var stock = _stockRepositories.GetSingle(stockId);
                 if(customer==null || stock==null)
@@ -169,11 +168,13 @@ namespace HomeCinema.Controllers
                 {
                     if(stock.isAvailble)
                     {
+
                         Rental _rental = new Rental()
                         {
                             CustomerId = customerId,
                             StockId = stockId,
                             RentalDate = DateTime.Now,
+                            ReturnDate = DateTime.Now.AddYears(-100),
                             Status = "Borrowed"
                         };
                         _rentalRepositories.Add(_rental);
@@ -181,7 +182,6 @@ namespace HomeCinema.Controllers
                         _unitOfWork.Commit();
                         RentalViewModel rentalvm = Mapper.Map<Rental, RentalViewModel>(_rental);
                         response = request.CreateResponse(HttpStatusCode.OK, rentalvm);
-
                     }
                     else
                     {

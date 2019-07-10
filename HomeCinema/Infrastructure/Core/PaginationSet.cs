@@ -9,11 +9,11 @@ namespace HomeCinema.Infrastructure.Core
     {
         public int Page { get; set; }
 
-        public int Count { get { return (null != this.items) ? this.items.Count() : 0; } }
+        public int Count { get { return (null != this.Items) ? this.Items.Count() : 0; } }
 
         public int TotalPages { get; set; }
         public int TotalCount { get; set; }
 
-        public IEnumerable<T> items { get; set; }
+        public IEnumerable<T> Items { get; set; }
     }
 }

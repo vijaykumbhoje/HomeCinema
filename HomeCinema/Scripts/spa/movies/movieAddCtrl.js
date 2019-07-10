@@ -65,7 +65,7 @@
         }
 
         function addMovieFailed(response) {
-            console.log(response);
+           
             notificationService.displayError(response.statusText);
         }
 
@@ -80,12 +80,16 @@
             $location.url('movies/edit/' + $scope.movie.ID);
         }
 
-        function changeNumberOfStocks($vent) {
-            var btn = $('#btnSetStocks'),
-                oldValue = $('#inputStocks').val().trim(),
+        function changeNumberOfStocks(event) {
+
+            if (!event.currentTarget || !event.currentTarget.attributes) {
+                return;
+            }
+
+            let oldValue = $('#inputStocks').val().trim(),
                 newVal = 0;
 
-            if (btn.attr('data-dir') == 'up') {
+            if (event.currentTarget.attributes['data-dir'].value == 'up') {
                 newVal = parseInt(oldValue) + 1;
             } else {
                 if (oldValue > 1) {
@@ -94,6 +98,7 @@
                     newVal = 1;
                 }
             }
+
             $('#inputStocks').val(newVal);
             $scope.movie.NumberOfStocks = newVal;
             console.log($scope.movie);

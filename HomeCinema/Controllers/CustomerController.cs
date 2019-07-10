@@ -26,6 +26,7 @@ namespace HomeCinema.Controllers
             _customerRepositories = customerRepository;
         }
 
+        [Route("{filter?}")]
         public HttpResponseMessage Get(HttpRequestMessage request, string filter)
         {
             filter = filter.ToLower().Trim();
@@ -79,6 +80,7 @@ namespace HomeCinema.Controllers
                     else
                     {
                         Customer newCustomer = new Customer();
+                        customerVm.RegistrationDate = DateTime.Now;
                         newCustomer.UpdateCustomer(customerVm);
                         _customerRepositories.Add(newCustomer);
                         _unitOfWork.Commit();
@@ -119,7 +121,7 @@ namespace HomeCinema.Controllers
                 }
 
                 totalMovies = customers.Count();
-                customers = customers.Skip(currentPage * currentPageSize).Take(currentPageSize).ToList();
+                 customers = customers.Skip(currentPage * currentPageSize).Take(currentPageSize).ToList();
 
                 IEnumerable<CustomerViewModel> customerVM = Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerViewModel>>(customers);
 
@@ -128,7 +130,7 @@ namespace HomeCinema.Controllers
                     Page = currentPage,
                     TotalCount = totalMovies,
                     TotalPages = (int)Math.Ceiling((decimal)totalMovies / currentPageSize),
-                    items = customerVM                
+                    Items = customerVM                
                 };
                 response = request.CreateResponse(HttpStatusCode.OK, pagedSet);
                 return response;

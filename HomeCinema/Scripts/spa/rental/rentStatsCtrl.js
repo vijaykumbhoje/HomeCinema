@@ -19,15 +19,16 @@
 
         function rentalHistoryLoadCompleted(result) {
             $scope.rentals = result.data;
-
+            
             $timeout(function () {
                 angular.forEach($scope.rentals, function (rental) {
+                   
                     if (rental.TotalRentals > 0) {
-
+                        
                         var movieRentals = rental.Rentals;
-
+                        console.log(rental.Id);
                         Morris.Line({
-                            element: 'statistics-' + rental.ID,
+                            element: 'statistics-' + rental.Id,
                             data: movieRentals,
                             parseTime: false,
                             lineWidth: 4,
