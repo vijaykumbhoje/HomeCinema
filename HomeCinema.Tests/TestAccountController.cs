@@ -15,7 +15,7 @@ namespace HomeCinema.Tests
         public void TestLogin_ShouldLoggedIn()
         {
             //Arrange
-            var controller = new AccountController();
+            
 
 
             //Act
