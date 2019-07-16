@@ -52,7 +52,7 @@
         }
 
         function customersLoadCompleted(result) {
-            alert(JSON.stringify(result));
+           
             $scope.Customers = result.data.Items;           
             $scope.page = result.data.Page;
             $scope.pagesCount = result.data.TotalPages;

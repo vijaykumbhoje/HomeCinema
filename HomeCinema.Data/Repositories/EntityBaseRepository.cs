@@ -78,9 +78,5 @@ namespace HomeCinema.Data.Repositories
             DbEntityEntry dbEntityEntry = DbContext.Entry<T>(entity);
             dbEntityEntry.State = EntityState.Deleted;
         }
-
-
-
-
     }
 }
