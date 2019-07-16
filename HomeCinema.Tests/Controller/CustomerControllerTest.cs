@@ -35,7 +35,11 @@ namespace HomeCinema.Tests.Controller
         {
             _customers = SetUpCustomers();
             var customerRepository = new Mock<IEntityBaseRepository<Customer>>();
-                
+            var errorRepository = new Mock<IEntityBaseRepository<Error>>();
+            var unitOfWork = new Mock<IUnitOfWork>();
+            unitOfWork.SetupGet(c => c.customerRepository).Returns(_customerRepository);
+            _unitOfWork = unitOfWork.Object;
+            var controller = new CustomerController(customerRepository.Object, errorRepository.Object, _unitOfWork);
         }
 
 

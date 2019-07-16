@@ -13,6 +13,7 @@ namespace HomeCinema.Data.Infrastructure
         private readonly IDbFactory dbFactory;
         private HomeCinemaContext dbContext;
         private EntityBaseRepository<User> _userRepository;
+        private EntityBaseRepository<Customer> _customerRepository;
 
 
         public UnitOfWork(IDbFactory dbFactory)
@@ -37,6 +38,16 @@ namespace HomeCinema.Data.Infrastructure
             }
         }
 
+        public EntityBaseRepository<Customer> customerRepository
+        {
+            get
+            {
+                if (this._customerRepository == null)
+                    this._customerRepository = new EntityBaseRepository<Customer>(dbFactory);
+                return _customerRepository;
+
+            }
+        }
         public void Commit()
         {
             DbContext.Commit(); 

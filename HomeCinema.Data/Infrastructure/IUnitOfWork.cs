@@ -11,7 +11,8 @@ namespace HomeCinema.Data.Infrastructure
    public interface IUnitOfWork
     {
        EntityBaseRepository<User> userRepository { get; }
-            
+        EntityBaseRepository<Customer> customerRepository { get; }
+
         void Commit();
     }
 }

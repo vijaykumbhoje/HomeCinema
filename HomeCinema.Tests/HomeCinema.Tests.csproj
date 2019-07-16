@@ -96,7 +96,6 @@
     <Compile Include="Helper\CustomerComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Route_Test.cs" />
-    <Compile Include="Services\Services_Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
