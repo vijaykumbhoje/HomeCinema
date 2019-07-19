@@ -45,12 +45,12 @@ namespace HomeCinema.Controllers
                     }
                     else
                     {
-                        response = request.CreateResponse(HttpStatusCode.OK, new { success = false });
+                        response = request.CreateResponse(HttpStatusCode.NotFound, new { success = false });
                     }
                 }
                 else
                 {
-                    response = request.CreateResponse(HttpStatusCode.OK, new { success = false });
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
                 }
                 return response;
             });
@@ -68,15 +68,15 @@ namespace HomeCinema.Controllers
                     User _user = _membershipService.CreateUser(user.Username, user.Password, user.Email, new int[] { 1 });
                     if(_user !=null)
                     {
-                        response = request.CreateResponse(HttpStatusCode.OK, new { success = true });
+                        response = request.CreateResponse(HttpStatusCode.Created, new { success = true });
                     }else
                     {
-                        response = request.CreateResponse(HttpStatusCode.OK, new { success = false });
+                        response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
                     }
                 }
                 else
                 {
-                    response = request.CreateResponse(HttpStatusCode.OK, new { success = false });
+                    response = request.CreateResponse(HttpStatusCode.BadRequest, new { success = false });
                 }
                 return response;
             });

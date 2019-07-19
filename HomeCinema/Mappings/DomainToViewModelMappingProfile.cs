@@ -26,6 +26,7 @@ namespace HomeCinema.Mappings
             CreateMap<Customer, CustomerViewModel>();
             CreateMap<Stock, StockViewModel>();
             CreateMap<Rental, RentalViewModel>();
+             
         }
         public override string ProfileName
         {

@@ -9,6 +9,7 @@ using System.Web.SessionState;
 using System.Web.Http;
 using HomeCinema.App_Start;
 using System.Web.Optimization;
+using HomeCinema.Mappings;
 
 namespace HomeCinema
 {
@@ -25,7 +26,7 @@ namespace HomeCinema
             GlobalConfiguration.Configuration.EnsureInitialized();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
+            AutoMapperConfiguration.Configure();
         }
     }
 }

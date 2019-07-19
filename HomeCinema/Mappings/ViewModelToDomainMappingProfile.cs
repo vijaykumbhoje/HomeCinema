@@ -14,6 +14,9 @@ namespace HomeCinema.Mappings
         {
            CreateMap<MovieViewModel, Movie>()             
               .ForMember(m => m.Genre, map => map.Ignore());
+            CreateMap<GenreViewModel, Genre>();
+                
+
         }
         public override string ProfileName
         {

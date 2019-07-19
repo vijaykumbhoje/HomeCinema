@@ -149,7 +149,7 @@ namespace HomeCinema.Controllers
                     Customer _customer = _customerRepositories.GetSingle(customer.ID);
                     _customer.UpdateCustomer(customer);
                     _unitOfWork.Commit();
-                    response = request.CreateResponse(HttpStatusCode.OK);
+                    response = request.CreateResponse(HttpStatusCode.OK, customer);
                 }
                 return response;
             });

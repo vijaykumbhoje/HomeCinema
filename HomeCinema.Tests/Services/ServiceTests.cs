@@ -49,7 +49,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [Test]
-        public void LoginTest()
+        public void LoginServiceTest()
         {
             var returnId = _membershipServices.ValidateUser(correctUserName, correctPassword);
 
@@ -59,7 +59,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [Test]
-        public void WrongCredentialsTest()
+        public void WrongCredentialsLoginServiceTest()
         {
             var returnId = _membershipServices.ValidateUser(wrongUserName, wrongPassword);
 
@@ -68,6 +68,7 @@ namespace HomeCinema.Tests.Controller
                 Assert.That(returnId, firstOrDefault!=null ? Is.EqualTo(firstOrDefault.Id): Is.EqualTo(0));
         }
 
+        
 
 
         #region 'Private Methods'

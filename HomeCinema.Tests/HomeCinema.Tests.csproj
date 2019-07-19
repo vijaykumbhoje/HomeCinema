@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -89,6 +92,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\AccountControllerTest.cs" />
+    <Compile Include="Controller\GenreControllerTest.cs" />
+    <Compile Include="Controller\MoviesControllerTest.cs" />
+    <Compile Include="Controller\RentalControllerTest.cs" />
     <Compile Include="Services\ServiceTests.cs" />
     <Compile Include="Controller\CustomerControllerTest.cs" />
     <Compile Include="Helper\ControllerActionSelector.cs" />
