@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using HomeCinema.Controllers;
@@ -13,18 +14,20 @@ using HomeCinema.Entities;
 using HomeCinema.Mappings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Newtonsoft.Json.Linq;
 
 namespace HomeCinema.Tests.Controller
 {
     [TestClass]
     public class RentalControllerTest
     {
+
         Mock<IEntityBaseRepository<Error>> _errorRepo = new Mock<IEntityBaseRepository<Error>>();
         Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>();
         HomeCinemaContext _dbContext;
         List<Stock> stock = new List<Stock>();
 
-       [TestMethod]
+        [TestMethod]
         public void ShouldGetMovieRentalHistory()
         {
             //Arrange
@@ -38,10 +41,12 @@ namespace HomeCinema.Tests.Controller
 
             //Act
             var response = controller.RentalHistory(controller.Request, 1);
+            var responseString = GetResponseString(response);
+            JObject obj = returnJString(responseString.Result);
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
+            Assert.IsNotNull(obj);
         }
 
         #region Methods
@@ -49,13 +54,13 @@ namespace HomeCinema.Tests.Controller
         {
             var stockRepo = new Mock<EntityBaseRepository<Stock>>(MockBehavior.Default, _dbContext);
             stock = new List<Stock>();
-            stock.Add(new Stock { Id = 1, MovieId = 1, UniqueKey = Guid.Parse("4EEAEC04-D90F-43C2-B996-BD0FE7750CF9"), isAvailble = true });
-            stock.Add(new Stock { Id = 2, MovieId = 1, UniqueKey = Guid.Parse("7DCD83DF-52EB-49BE-A597-AA178198C76C"), isAvailble = false });
-            stock.Add(new Stock { Id = 3, MovieId = 2, UniqueKey = Guid.Parse("C723CC9E-3DC2-4534-8918-C186D16DE948"), isAvailble = true });
-            stock.Add(new Stock { Id = 4, MovieId = 3, UniqueKey = Guid.Parse("A7C2FA62-FB64-479E-ABA9-31FD2E9769BD"), isAvailble = true });
-            stock.Add(new Stock { Id = 5, MovieId = 3, UniqueKey = Guid.Parse("C8022BA4-55E5-4717-B20B-45A6D55E9E7B"), isAvailble = false });
-            stock.Add(new Stock { Id = 6, MovieId = 4, UniqueKey = Guid.Parse("A46E05AA-7458-4EC7-A070-8B104D5ECB79"), isAvailble = true });
-            stock.Add(new Stock { Id = 7, MovieId = 4, UniqueKey = Guid.Parse("82707365-FE94-47F7-98ED-C07DFF306D21"), isAvailble = false });
+            stock.Add(new Stock { MovieId = 1, UniqueKey = Guid.Parse("4EEAEC04-D90F-43C2-B996-BD0FE7750CF9"), isAvailble = true });
+            stock.Add(new Stock { MovieId = 1, UniqueKey = Guid.Parse("7DCD83DF-52EB-49BE-A597-AA178198C76C"), isAvailble = false });
+            //stock.Add(new Stock { Id = 3, MovieId = 2, UniqueKey = Guid.Parse("C723CC9E-3DC2-4534-8918-C186D16DE948"), isAvailble = true });
+            //stock.Add(new Stock { Id = 4, MovieId = 3, UniqueKey = Guid.Parse("A7C2FA62-FB64-479E-ABA9-31FD2E9769BD"), isAvailble = true });
+            //stock.Add(new Stock { Id = 5, MovieId = 3, UniqueKey = Guid.Parse("C8022BA4-55E5-4717-B20B-45A6D55E9E7B"), isAvailble = false });
+            //stock.Add(new Stock { Id = 6, MovieId = 4, UniqueKey = Guid.Parse("A46E05AA-7458-4EC7-A070-8B104D5ECB79"), isAvailble = true });
+            //stock.Add(new Stock { Id = 7, MovieId = 4, UniqueKey = Guid.Parse("82707365-FE94-47F7-98ED-C07DFF306D21"), isAvailble = false });
             stockRepo.Setup(s => s.GetAll()).Returns(stock.AsQueryable());
             return stockRepo.Object;
         }
@@ -63,17 +68,17 @@ namespace HomeCinema.Tests.Controller
         {
             var rentalRepo = new Mock<EntityBaseRepository<Rental>>(MockBehavior.Default, _dbContext);
             List<Rental> rentals = new List<Rental>();
-            rentals.Add(new Rental {Id=1, CustomerId=1, StockId= 1, RentalDate= Convert.ToDateTime("2019-07-10 14:35:58.310"), ReturnDate=null, Status="Borrowed" });
-            rentals.Add(new Rental { Id = 2, CustomerId = 2, StockId = 2, RentalDate = Convert.ToDateTime("2019-08-11 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-12 14:35:58.310"), Status = "Returned" });
+            rentals.Add(new Rental { Id = 1, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-07-10 14:35:58.310"), ReturnDate = null, Status = "Borrowed" });
+            rentals.Add(new Rental { Id = 2, CustomerId = 2, StockId = 1, RentalDate = Convert.ToDateTime("2019-08-11 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-12 14:35:58.310"), Status = "Returned" });
             rentals.Add(new Rental { Id = 3, CustomerId = 3, StockId = 3, RentalDate = Convert.ToDateTime("2019-09-12 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-13 14:35:58.310"), Status = "Returned" });
             rentals.Add(new Rental { Id = 1, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-10-14 14:35:58.310"), ReturnDate = null, Status = "Borrowed" });
             rentalRepo.Setup(r => r.GetAll()).Returns(rentals.AsQueryable());
-            #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<DomainToViewModelMappingProfile>();
             });
-            #pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore CS0618 // Type or member is obsolete
             return rentalRepo.Object;
         }
 
@@ -90,8 +95,22 @@ namespace HomeCinema.Tests.Controller
 
         private EntityBaseRepository<Movie> setupMoviesRepository()
         {
+            List<Rental> cust1Rental = new List<Rental>();
+            cust1Rental.Add(new Rental { Id = 1, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-07-10 14:35:58.310"), ReturnDate = null, Status = "Borrowed" });
+            cust1Rental.Add(new Rental { Id = 2, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-08-11 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-12 14:35:58.310"), Status = "Returned" });
+            cust1Rental.Add(new Rental { Id = 3, CustomerId = 1, StockId = 2, RentalDate = Convert.ToDateTime("2019-07-10 14:35:58.310"), ReturnDate = null, Status = "Borrowed" });
+            cust1Rental.Add(new Rental { Id = 4, CustomerId = 1, StockId = 2, RentalDate = Convert.ToDateTime("2018-03-04 14:35:58.310"), ReturnDate = Convert.ToDateTime("2018-03-10 14:35:58.310"), Status = "Returned" });
+
+
+            List<Stock> minions = new List<Stock>();
+            minions.Add(new Stock { Id = 1, MovieId = 1, UniqueKey = Guid.Parse("4EEAEC04-D90F-43C2-B996-BD0FE7750CF9"), isAvailble = true, Rentals = cust1Rental });
+            minions.Add(new Stock { Id = 2, MovieId = 1, UniqueKey = Guid.Parse("7DCD83DF-52EB-49BE-A597-AA178198C76C"), isAvailble = false, Rentals = cust1Rental });
+
+
+
             var movieRepo = new Mock<EntityBaseRepository<Movie>>(MockBehavior.Default, _dbContext);
             List<Movie> movies = new List<Movie>();
+
             movies.Add(new Movie
             {
                 Id = 1,
@@ -105,7 +124,7 @@ namespace HomeCinema.Tests.Controller
                 ReleaseDate = Convert.ToDateTime("2015-07-10 00:00:00.000"),
                 Rating = 3,
                 TrailerUrl = "https://www.youtube.com/watch?v=Wfql_DoHRKc",
-                Stocks = stock
+                Stocks = minions
             });
 
             movies.Add(new Movie
@@ -205,12 +224,24 @@ namespace HomeCinema.Tests.Controller
             });
 
             movieRepo.Setup(m => m.GetAll()).Returns(movies.AsQueryable());
-           
 
-         
+
+
             return movieRepo.Object;
         }
 
+        public async Task<string> GetResponseString(HttpResponseMessage response)
+        {
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public JObject returnJString(string task)
+        {
+
+            JArray jArray = JArray.Parse(task);
+            JObject obj = JObject.Parse(jArray[0].ToString());
+            return obj;
+        }
         #endregion
     }
 }

@@ -94,21 +94,9 @@
     <Compile Include="Infrastructure\IDbFactory.cs" />
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201907080633489_changeddatabase.cs" />
-    <Compile Include="Migrations\201907080633489_changeddatabase.Designer.cs">
-      <DependentUpon>201907080633489_changeddatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907100752175_MakeRFentalDateOptional.cs" />
-    <Compile Include="Migrations\201907100752175_MakeRFentalDateOptional.Designer.cs">
-      <DependentUpon>201907100752175_MakeRFentalDateOptional.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907100801300_MakeRentalDateOptional.cs" />
-    <Compile Include="Migrations\201907100801300_MakeRentalDateOptional.Designer.cs">
-      <DependentUpon>201907100801300_MakeRentalDateOptional.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907101026426_changedTotalRentals.cs" />
-    <Compile Include="Migrations\201907101026426_changedTotalRentals.Designer.cs">
-      <DependentUpon>201907101026426_changedTotalRentals.cs</DependentUpon>
+    <Compile Include="Migrations\201907201610499_initialMigration.cs" />
+    <Compile Include="Migrations\201907201610499_initialMigration.Designer.cs">
+      <DependentUpon>201907201610499_initialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,17 +118,8 @@
     <Content Include="uk\MockData.resources.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907080633489_changeddatabase.resx">
-      <DependentUpon>201907080633489_changeddatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907100752175_MakeRFentalDateOptional.resx">
-      <DependentUpon>201907100752175_MakeRFentalDateOptional.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907100801300_MakeRentalDateOptional.resx">
-      <DependentUpon>201907100801300_MakeRentalDateOptional.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907101026426_changedTotalRentals.resx">
-      <DependentUpon>201907101026426_changedTotalRentals.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907201610499_initialMigration.resx">
+      <DependentUpon>201907201610499_initialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
