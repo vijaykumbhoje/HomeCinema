@@ -126,7 +126,7 @@ namespace HomeCinema.Controllers
                     _moviesRepository.Add(newMovie);
                     _unitOfWork.Commit();
                     movieVm = Mapper.Map<Movie, MovieViewModel>(newMovie);
-                    response = request.CreateResponse(HttpStatusCode.OK, movieVm);
+                    response = request.CreateResponse(HttpStatusCode.Created, movieVm);
                 }
                 return response;
             });
