@@ -96,6 +96,7 @@
     <Compile Include="Controller\GenreControllerTest.cs" />
     <Compile Include="Controller\MoviesControllerTest.cs" />
     <Compile Include="Controller\RentalControllerTest.cs" />
+    <Compile Include="Controller\StockControllerTest.cs" />
     <Compile Include="Services\ServiceTests.cs" />
     <Compile Include="Controller\CustomerControllerTest.cs" />
     <Compile Include="Helper\ControllerActionSelector.cs" />

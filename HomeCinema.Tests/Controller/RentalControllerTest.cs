@@ -49,29 +49,96 @@ namespace HomeCinema.Tests.Controller
             Assert.IsNotNull(obj);
         }
 
+        [TestMethod]
+        public void ShouldGetTotalMovieRentalHistory()
+        {
+            //Arrange
+            var movieRepo = setupMoviesRepository();
+            var customerRepo = SetupCustomerRepository();
+            var stockRepo = setupStockRepository();
+            var rentalRepo = SetupRentalRepository();
+            var controller = new RentalsController(rentalRepo, customerRepo, stockRepo, movieRepo, _errorRepo.Object, _unitOfWork.Object);
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+
+            //Act
+            var response = controller.TotalRentalHistory(controller.Request);
+            var responseString = GetResponseString(response);
+            JObject obj = returnJString(responseString.Result);
+
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            Assert.IsNotNull(obj);
+
+
+        }
+
+        [TestMethod]
+        public void ShouldReturnRentedMovie()
+        {
+            //Arrange
+            var movieRepo = setupMoviesRepository();
+            var customerRepo = SetupCustomerRepository();
+            var stockRepo = setupStockRepository();
+            var rentalRepo = SetupRentalRepository();
+            var controller = new RentalsController(rentalRepo, customerRepo, stockRepo, movieRepo, _errorRepo.Object, _unitOfWork.Object);
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+
+            //Act
+            var response = controller.Return(controller.Request, 1);          
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.Accepted, response.StatusCode);
+           
+        }
+
+        [TestMethod]
+        public void ShouldRentMovie()
+        {
+            //Arrange
+            var movieRepo = setupMoviesRepository();
+            var customerRepo = SetupCustomerRepository();
+            var stockRepo = setupStockRepository();
+            var rentalRepo = SetupRentalRepository();
+            var controller = new RentalsController(rentalRepo, customerRepo, stockRepo, movieRepo, _errorRepo.Object, _unitOfWork.Object);
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+
+            //Act
+            var response = controller.Rent(controller.Request, 1,2);
+            var responseString = GetResponseString(response);
+            JObject obj = JObject.Parse(responseString.Result);
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+            Assert.AreEqual("Borrowed",obj["Status"].ToString());
+        }
+
         #region Methods
         private EntityBaseRepository<Stock> setupStockRepository()
         {
             var stockRepo = new Mock<EntityBaseRepository<Stock>>(MockBehavior.Default, _dbContext);
             stock = new List<Stock>();
-            stock.Add(new Stock { MovieId = 1, UniqueKey = Guid.Parse("4EEAEC04-D90F-43C2-B996-BD0FE7750CF9"), isAvailble = true });
-            stock.Add(new Stock { MovieId = 1, UniqueKey = Guid.Parse("7DCD83DF-52EB-49BE-A597-AA178198C76C"), isAvailble = false });
-            //stock.Add(new Stock { Id = 3, MovieId = 2, UniqueKey = Guid.Parse("C723CC9E-3DC2-4534-8918-C186D16DE948"), isAvailble = true });
-            //stock.Add(new Stock { Id = 4, MovieId = 3, UniqueKey = Guid.Parse("A7C2FA62-FB64-479E-ABA9-31FD2E9769BD"), isAvailble = true });
-            //stock.Add(new Stock { Id = 5, MovieId = 3, UniqueKey = Guid.Parse("C8022BA4-55E5-4717-B20B-45A6D55E9E7B"), isAvailble = false });
-            //stock.Add(new Stock { Id = 6, MovieId = 4, UniqueKey = Guid.Parse("A46E05AA-7458-4EC7-A070-8B104D5ECB79"), isAvailble = true });
-            //stock.Add(new Stock { Id = 7, MovieId = 4, UniqueKey = Guid.Parse("82707365-FE94-47F7-98ED-C07DFF306D21"), isAvailble = false });
+            stock.Add(new Stock { Id=1, MovieId = 1, UniqueKey = Guid.Parse("4EEAEC04-D90F-43C2-B996-BD0FE7750CF9"), isAvailble = true });
+            stock.Add(new Stock { Id = 2, MovieId = 1, UniqueKey = Guid.Parse("7DCD83DF-52EB-49BE-A597-AA178198C76C"), isAvailble = true });
             stockRepo.Setup(s => s.GetAll()).Returns(stock.AsQueryable());
             return stockRepo.Object;
         }
         public EntityBaseRepository<Rental> SetupRentalRepository()
         {
+           
+           Stock stock1 = new Stock{Id=1, MovieId = 1, UniqueKey = Guid.Parse("4EEAEC04-D90F-43C2-B996-BD0FE7750CF9"), isAvailble = false };
+            Stock stock2 = new Stock { Id = 2, MovieId = 1, UniqueKey = Guid.Parse("4EEAEC04-D90F-43C2-B996-BD0FE7750CF9"), isAvailble = true };
+
+
             var rentalRepo = new Mock<EntityBaseRepository<Rental>>(MockBehavior.Default, _dbContext);
             List<Rental> rentals = new List<Rental>();
-            rentals.Add(new Rental { Id = 1, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-07-10 14:35:58.310"), ReturnDate = null, Status = "Borrowed" });
-            rentals.Add(new Rental { Id = 2, CustomerId = 2, StockId = 1, RentalDate = Convert.ToDateTime("2019-08-11 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-12 14:35:58.310"), Status = "Returned" });
-            rentals.Add(new Rental { Id = 3, CustomerId = 3, StockId = 3, RentalDate = Convert.ToDateTime("2019-09-12 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-13 14:35:58.310"), Status = "Returned" });
-            rentals.Add(new Rental { Id = 1, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-10-14 14:35:58.310"), ReturnDate = null, Status = "Borrowed" });
+            rentals.Add(new Rental { Id = 1, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-07-10 14:35:58.310"), ReturnDate = null, Status = "Borrowed", Stock = stock1 });
+            rentals.Add(new Rental { Id = 2, CustomerId = 2, StockId = 1, RentalDate = Convert.ToDateTime("2019-08-11 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-12 14:35:58.310"), Status = "Returned", Stock = stock1 });
+            rentals.Add(new Rental { Id = 3, CustomerId = 3, StockId = 2, RentalDate = Convert.ToDateTime("2019-09-12 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-13 14:35:58.310"), Status = "Returned", Stock = stock2 });
+            rentals.Add(new Rental { Id = 1, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-10-14 14:35:58.310"), ReturnDate = null, Status = "Borrowed", Stock = stock1 });
             rentalRepo.Setup(r => r.GetAll()).Returns(rentals.AsQueryable());
 #pragma warning disable CS0618 // Type or member is obsolete
             Mapper.Initialize(cfg =>

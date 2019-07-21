@@ -141,7 +141,7 @@ namespace HomeCinema.Controllers
                     rental.Stock.isAvailble = true;
                     rental.ReturnDate = DateTime.Now;
                     _unitOfWork.Commit();
-                    response = request.CreateResponse(HttpStatusCode.OK);
+                    response = request.CreateResponse(HttpStatusCode.Accepted);
                 }
                 else
                 {
@@ -181,7 +181,7 @@ namespace HomeCinema.Controllers
                         stock.isAvailble = false;
                         _unitOfWork.Commit();
                         RentalViewModel rentalvm = Mapper.Map<Rental, RentalViewModel>(_rental);
-                        response = request.CreateResponse(HttpStatusCode.OK, rentalvm);
+                        response = request.CreateResponse(HttpStatusCode.Created, rentalvm);
                     }
                     else
                     {
