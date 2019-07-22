@@ -40,8 +40,8 @@ namespace HomeCinema.Tests.Controller
             JObject obj = returnJString(responseString.Result);
 
             //Assert
-            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
-            Assert.AreEqual("Borrowed", obj["Status"].ToString());
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+           
         }
 
 

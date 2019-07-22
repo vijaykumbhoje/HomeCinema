@@ -26,7 +26,7 @@ namespace HomeCinema
             GlobalConfiguration.Configuration.EnsureInitialized();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AutoMapperConfiguration.Configure();
+
         }
     }
 }
