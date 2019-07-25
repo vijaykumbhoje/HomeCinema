@@ -35,7 +35,7 @@ namespace HomeCinema.Tests.Controller
 
         [TestMethod]
         [Description("Method Should Return ValidStatus for Login")]
-        public void ShouldLogin()
+        public void Authenticate_Login_ShouldLogin()
         {
             //Arrange
             var userRepo = SetUserRepository();
@@ -61,7 +61,7 @@ namespace HomeCinema.Tests.Controller
         
         [TestMethod]
         
-        public void ShouldNotLogin()
+        public void Authenticate_FalseCredentials_ShouldNotLogin()
         {
             //Arrange
             var userRepo = SetUserRepository();
@@ -87,7 +87,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [TestMethod]       
-        public void UserShouldGetRegistered()
+        public void Register_RegisterUser_ShouldGetRegistered()
         {
             //Arrange
             var userRepo = SetUserRepository();

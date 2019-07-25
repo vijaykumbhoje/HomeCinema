@@ -29,7 +29,7 @@ namespace HomeCinema.Tests.Controller
     {
         private EntityBaseRepository<Customer> _customerRepository;
         private IUnitOfWork _unitOfWork;
-    
+
         private List<Customer> _customers;
         private HomeCinemaContext _dbEntities;
 
@@ -44,6 +44,7 @@ namespace HomeCinema.Tests.Controller
             unitOfWork.SetupGet(c => c.customerRepository).Returns(_customerRepository);
             _unitOfWork = unitOfWork.Object;
             var controller = new CustomerController(customerRepository, errorRepository.Object, _unitOfWork);
+            Mapper.Reset();
 #pragma warning disable CS0618 // Type or member is obsolete
             Mapper.Initialize(cfg =>
             {
@@ -52,10 +53,9 @@ namespace HomeCinema.Tests.Controller
 #pragma warning restore CS0618 // Type or member is obsolete
         }
 
-
+    
         [Test]
-
-        public void CustomerShouldGetRegistered()
+        public void Customer_Registration_ShouldGetRegistered()
         {
             //Arrange
             var customerRepository = SetupCustomerRepository();
@@ -84,8 +84,9 @@ namespace HomeCinema.Tests.Controller
             Assert.AreEqual("fourthName", obj["FirstName"].ToString());
 
         }
+
         [Test]
-        public void ShouldReturnCustomerBasedOnFilter()
+        public void Customer_GetCustomerByFilterString_ReturnCustomerWithMatchingFilter()
         {
             //Arrange           
             var customerRepository = SetupCustomerRepository(); //new Mock<IEntityBaseRepository<Customer>>();          
@@ -107,7 +108,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [Test]
-        public void ShouldReturnCustomerBasedOnID()
+        public void Customer_GetCustomerByID_ShouldReturnCustomerBasedOnID()
         {
             //Arrange
             var customerRepository = SetupCustomerRepository();
@@ -127,7 +128,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [Test]
-        public void ShouldReturnSearchedCustomerOrAll()
+        public void Customer_SearchCustomer_ShouldReturnSearchedCustomerOrAll()
         {
 
             //Arrange
@@ -138,9 +139,9 @@ namespace HomeCinema.Tests.Controller
             controller.Request = new HttpRequestMessage();
             controller.Request.SetConfiguration(new HttpConfiguration());
             int cnt = customerRepository.GetAll().Count();
-          
+
             //Act
-            var response = controller.Search(controller.Request, 0, 4, string.Empty);            
+            var response = controller.Search(controller.Request, 0, 4, string.Empty);
             var responseString = GetResponseString(response);
             JObject obj = JObject.Parse(responseString.Result);
 
@@ -150,7 +151,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [Test]
-        public void ShouldUpdateCustomer()
+        public void Customer_Update_ShouldUpdateCustomer()
         {
             //Arrange
             var customerRepository = SetupCustomerRepository();

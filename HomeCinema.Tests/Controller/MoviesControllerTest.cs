@@ -28,7 +28,7 @@ namespace HomeCinema.Tests.Controller
         Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>();
 
         [TestMethod]
-        public void ShouldGetLatestMovies()
+        public void Movies_GetLatestMovies_ShouldGetLatestMovies()
         {
             //Arrange
             var movieRepo = setupMoviesRepository();            
@@ -45,7 +45,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [TestMethod]
-        public void ShouldReturnAllMovies()
+        public void Movies_GetAllMovies_ShouldReturnAllMovies()
         {
             //Arrange
             var movieRepo = setupMoviesRepository();           
@@ -67,7 +67,8 @@ namespace HomeCinema.Tests.Controller
         }
 
         [TestMethod]
-        public void ShouldGetMovieByID()
+        public void Movie_GetwithParameterID_ShouldGetMovieByID()
+
         {
             //Arrange
             var movieRepo = setupMoviesRepository();            
@@ -87,7 +88,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [TestMethod]
-        public void ShouldAddMovie()
+        public void Movie_Add_ShouldAddMovie()
         {
             //Arrange
             var movieRepo = setupMoviesRepository();
@@ -119,7 +120,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [TestMethod]
-        public void ShouldUpdateMovie()
+        public void Movie_Update_ShouldUpdateMovie()
         {
             //Arrange
             var movieRepo = setupMoviesRepository();
@@ -141,7 +142,7 @@ namespace HomeCinema.Tests.Controller
             };
 
             //Act
-            var response = controller.Add(controller.Request, movieVm);
+            var response = controller.Update(controller.Request, movieVm);
             var responseString = GetResponseString(response);
             JObject obj = JObject.Parse(responseString.Result);
 
@@ -248,7 +249,7 @@ namespace HomeCinema.Tests.Controller
 
             movies.Add(new Movie
             {
-                Id = 6,
+                Id = 7,
                 Title = "Ant-Man",
                 Description = "hatches a plot to take over the world.,",
                 Image = "minions.jpg",
@@ -262,6 +263,7 @@ namespace HomeCinema.Tests.Controller
             });
 
             movieRepo.Setup(m => m.GetAll()).Returns(movies.AsQueryable());
+            Mapper.Reset();
             #pragma warning disable CS0618 // Type or member is obsolete
 
             Mapper.Initialize(cfg =>

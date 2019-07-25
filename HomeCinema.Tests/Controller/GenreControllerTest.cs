@@ -30,7 +30,7 @@ namespace HomeCinema.Tests.Controller
 
       
         [TestMethod]
-        public void ShouldGetGenre()
+        public void Genre_GetGenre_ShouldGetGenre()
         {
 
             //Arrange

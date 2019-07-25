@@ -49,7 +49,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [Test]
-        public void LoginServiceTest()
+        public void Service_LoginService_ShouldLogin()
         {
             var returnId = _membershipServices.ValidateUser(correctUserName, correctPassword);
 
@@ -59,7 +59,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [Test]
-        public void WrongCredentialsLoginServiceTest()
+        public void Service_LoginService_WrongCredentials_ShouldNotLogin()
         {
             var returnId = _membershipServices.ValidateUser(wrongUserName, wrongPassword);
 
@@ -83,10 +83,6 @@ namespace HomeCinema.Tests.Controller
             }
             mockRepo.Setup(u => u.GetSingle(It.IsAny<int>()))
                 .Returns(new Func<int, User>(id => _users.Find(p => p.Id.Equals(id))));
-
-
-
-
             return mockRepo.Object;
         }
         private static List<User> SetUpUser()

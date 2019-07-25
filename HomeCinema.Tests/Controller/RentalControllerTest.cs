@@ -28,7 +28,7 @@ namespace HomeCinema.Tests.Controller
         List<Stock> stock = new List<Stock>();
 
         [TestMethod]
-        public void ShouldGetMovieRentalHistory()
+        public void Rentals_GetRentalHistory_ShouldGetMovieRentalHistory()
         {
             //Arrange
             var movieRepo = setupMoviesRepository();
@@ -50,7 +50,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [TestMethod]
-        public void ShouldGetTotalMovieRentalHistory()
+        public void Rental_TotalRentalHistory_ShouldGetTotalMovieRentalHistory()
         {
             //Arrange
             var movieRepo = setupMoviesRepository();
@@ -75,7 +75,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [TestMethod]
-        public void ShouldReturnRentedMovie()
+        public void Rental_ReturnRental_ShouldReturnRentedMovie()
         {
             //Arrange
             var movieRepo = setupMoviesRepository();
@@ -95,7 +95,7 @@ namespace HomeCinema.Tests.Controller
         }
 
         [TestMethod]
-        public void ShouldRentMovie()
+        public void Rental_Rent_ShouldRentMovie()
         {
             //Arrange
             var movieRepo = setupMoviesRepository();
@@ -140,6 +140,7 @@ namespace HomeCinema.Tests.Controller
             rentals.Add(new Rental { Id = 3, CustomerId = 3, StockId = 2, RentalDate = Convert.ToDateTime("2019-09-12 14:35:58.310"), ReturnDate = Convert.ToDateTime("2019-08-13 14:35:58.310"), Status = "Returned", Stock = stock2 });
             rentals.Add(new Rental { Id = 1, CustomerId = 1, StockId = 1, RentalDate = Convert.ToDateTime("2019-10-14 14:35:58.310"), ReturnDate = null, Status = "Borrowed", Stock = stock1 });
             rentalRepo.Setup(r => r.GetAll()).Returns(rentals.AsQueryable());
+            Mapper.Reset();
 #pragma warning disable CS0618 // Type or member is obsolete
             Mapper.Initialize(cfg =>
             {
