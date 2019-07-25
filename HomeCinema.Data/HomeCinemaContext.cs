@@ -12,7 +12,7 @@ namespace HomeCinema.Data
 {
     public class HomeCinemaContext : DbContext
     {
-        public HomeCinemaContext() : base ("HomeCinema")
+        public HomeCinemaContext() : base ("DefaultConnection")
         {
             Database.SetInitializer<HomeCinemaContext>(null);
         }
