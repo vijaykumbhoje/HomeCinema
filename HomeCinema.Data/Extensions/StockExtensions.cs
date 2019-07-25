@@ -13,7 +13,7 @@ namespace HomeCinema.Data.Extensions
         public static IEnumerable<Stock> GetAvailableItems(this IEntityBaseRepository<Stock> stockRepository, int movieId)
         {
             IEnumerable<Stock> stocks = null;
-            stocks = stockRepository.GetAll().Where(s => s.MovieId == movieId && s.isAvailble);
+            stocks = stockRepository.GetAll();//.Where(s => s.MovieId == movieId && s.isAvailble);
             return stocks;
         }
     }

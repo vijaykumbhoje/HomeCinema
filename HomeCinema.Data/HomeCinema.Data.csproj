@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="it\MockData.resources.dll" />
+    <Content Include="SQL Script\HomeCinemascript.sql" />
     <Content Include="uk\MockData.resources.dll" />
   </ItemGroup>
   <ItemGroup>

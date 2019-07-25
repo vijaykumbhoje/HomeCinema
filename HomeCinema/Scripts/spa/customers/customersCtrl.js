@@ -66,7 +66,7 @@
         }
 
         function customersLoadFailed(response) {
-            alert(JSON.stringify(response));
+            
             notificationService.displayError(response.data);
         }
 
