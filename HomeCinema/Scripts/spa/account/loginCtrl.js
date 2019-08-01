@@ -15,9 +15,13 @@
         }
 
         function loginCompleted(result) {
-            if (result.data.success) {
-                membershipService.saveCredentials($scope.user);
-                notificationService.displaySuccess('Hello ' + $scope.user.username);
+            if (result.data !== null) {
+                let obj = JSON.parse(result.data);
+
+                //membershipService.saveCredentials($scope.user);
+                membershipService.saveJWTAuthToken(obj);
+                $scope.userData.username = obj.userName;
+                notificationService.displaySuccess('Hello ' + $scope.userData.username);
                 $scope.userData.displayUserInfo();
                 if ($rootScope.previousState)
                     $location.path($rootScope.previousState);

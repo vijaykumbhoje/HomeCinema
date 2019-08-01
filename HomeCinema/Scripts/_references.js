@@ -44,3 +44,5 @@
 /// <reference path="spa/account/registerctrl.js" />
 /// <reference path="spa/modules/common.core.js" />
 /// <reference path="spa/modules/common.ui.js" />
+/// <reference path="typings/jwt-decode/jwt-decode.d.ts" />
+

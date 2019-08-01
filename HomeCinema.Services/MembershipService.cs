@@ -13,7 +13,7 @@ using HomeCinema.Services.Utilities;
 
 namespace HomeCinema.Services
 {
-   public class MembershipService : IMembershipServices
+    public class MembershipService : IMembershipServices
     {
         #region 'veriables'
         private readonly IEntityBaseRepository<User> _userRepository;
@@ -23,7 +23,7 @@ namespace HomeCinema.Services
         private readonly IUnitOfWork _unitOfWork;
         #endregion
 
-        public MembershipService(IEntityBaseRepository<User> userRepository, 
+        public MembershipService(IEntityBaseRepository<User> userRepository,
             IEntityBaseRepository<Role> roleRepository, IEntityBaseRepository<UserRole> userRoleRepository,
             IEncryptionService encryptionService, IUnitOfWork unitOfWork)
         {
@@ -46,7 +46,7 @@ namespace HomeCinema.Services
                 RoleId = role.Id,
                 UserId = user.Id
             };
-            _userRoleRepository.Add(userRole);    
+            _userRoleRepository.Add(userRole);
         }
 
         private bool isPasswordValid(User user, string password)
@@ -56,18 +56,18 @@ namespace HomeCinema.Services
 
         private bool isUserValid(User user, string password)
         {
-            if(isPasswordValid(user, password))
+            if (isPasswordValid(user, password))
             {
                 return !user.IsLocked;
             }
-            return false;   
+            return false;
         }
         #endregion
 
         public User CreateUser(string username, string password, string email, int[] roles)
         {
             var existingUser = _userRepository.GetSingleByUsername(username);
-            if(existingUser!=null)
+            if (existingUser != null)
             {
                 throw new Exception("Username is already in use.");
             }
@@ -86,9 +86,9 @@ namespace HomeCinema.Services
             _userRepository.Add(user);
             _unitOfWork.Commit();
 
-            if(roles!=null || roles.Length>0)
+            if (roles != null || roles.Length > 0)
             {
-                foreach(var role in roles)
+                foreach (var role in roles)
                 {
                     addUserToRole(user, role);
                 }
@@ -106,9 +106,9 @@ namespace HomeCinema.Services
         {
             List<Role> _results = new List<Role>();
             var existingUser = _userRepository.GetSingleByUsername(username);
-            if(existingUser!=null)
+            if (existingUser != null)
             {
-                foreach(var role in existingUser.UserRoles)
+                foreach (var role in existingUser.UserRoles)
                 {
                     _results.Add(role.Role);
                 }
@@ -120,7 +120,7 @@ namespace HomeCinema.Services
         {
             var membershipCtx = new MembershipContext();
             var user = _userRepository.GetSingleByUsername(username);
-            if(user!=null && isUserValid(user, password))
+            if (user != null && isUserValid(user, password))
             {
                 var userRoles = GetUserRoles(user.UserName);
                 membershipCtx.User = user;
@@ -129,6 +129,16 @@ namespace HomeCinema.Services
                 membershipCtx.Principle = new GenericPrincipal(Identity, userRoles.Select(x => x.Name).ToArray());
             }
             return membershipCtx;
+        }
+
+        public bool CheckUser(string username, string password)
+        {
+            var user = _userRepository.GetSingleByUsername(username);
+            if (!string.IsNullOrEmpty(username) && isUserValid(user, password))
+                return true;
+
+            return false;
+
         }
     }
 }

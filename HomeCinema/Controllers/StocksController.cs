@@ -12,10 +12,12 @@ using System.Web.Http;
 using AutoMapper;
 using HomeCinema.Models;
 using System.Net;
+using HomeCinema.Services.Auth;
 
 namespace HomeCinema.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    //[Authorize(Roles ="Admin")]
+
     [RoutePrefix("api/stocks")]
     public class StocksController : ApiControllerBase
     {

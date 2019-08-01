@@ -10,8 +10,8 @@
         var service = {
             login: login,
             register: register,
-            saveCredentials: saveCredentials,
-            removeCredentials: removeCredentials,
+            saveJWTAuthToken: saveJWTAuthToken,
+            removeJWTToken: removeJWTToken,           
             isUserLoggedIn: isUserLoggedIn
         }
 
@@ -22,31 +22,30 @@
         }
 
         function register(user, completed) {
-            apiService.post('/api/account/register', 
-                user,
+            apiService.post('/api/account/register', user,
                 completed,
                 registrationFailed);
         }
 
-        function saveCredentials(user) {
-            var membershipData = $base64.encode(user.username + ':' + user.password);
-
+        function saveJWTAuthToken(result) {
+           
             $rootScope.repository = {
                 loggedUser: {
-                    username: user.username,
-                    authdata: membershipData
+                    username: result.userName,
+                    authdata: result.token
                 }
             };
-
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + membershipData;
+          
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + result.token;
             $cookieStore.put('repository', $rootScope.repository);
         }
 
-        function removeCredentials() {
+        function removeJWTToken() {
             $rootScope.repository = {};
-            $cookieStore.remove('repository');
-            $http.defaults.headers.common.Authorization = '';
-        };
+            $cookieStore.remove('repository')
+            $http.defaults.headers.common.Authorization = '';           
+        }
+    
 
         function loginFailed(response) {
             notificationService.displayError(response.data);
@@ -57,7 +56,8 @@
             notificationService.displayError('Registration failed. Try again.');
         }
 
-        function isUserLoggedIn() {
+        function isUserLoggedIn() {      
+           
             return $rootScope.repository.loggedUser != null;
         }
 

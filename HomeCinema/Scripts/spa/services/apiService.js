@@ -12,8 +12,9 @@
         };
 
         function get(url, config, success, failure) {
+          
             return $http.get(url, config)
-                .then(function (result) {
+                .then(function (result) {                   
                     success(result);
                 }, function (error) {
                     if (error.status == '401') {
@@ -42,8 +43,6 @@
                     }
                 });
         }
-
         return service;
     }
-
 })(angular.module('common.core'));

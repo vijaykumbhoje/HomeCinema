@@ -9,6 +9,8 @@ using System.Text;
 using HomeCinema.Infrastructure.Extensions;
 using System.Security.Principal;
 using System.Net;
+using HomeCinema.Services.Auth;
+using System.Security.Claims;
 
 namespace HomeCinema.Infrastructure.MessageHandlers
 {
@@ -25,19 +27,17 @@ namespace HomeCinema.Infrastructure.MessageHandlers
                    return base.SendAsync(request, cancellationToken);
 
                 var tokens = authHeaderValues.FirstOrDefault();
-                tokens = tokens.Replace("Basic", "").Trim();
+                tokens = tokens.Replace("Bearer ", "").Trim();
                 if (!string.IsNullOrEmpty(tokens))
                 {
-                    byte[] data = Convert.FromBase64String(tokens);
-                    string decodedString = Encoding.UTF8.GetString(data);
-                    string[] tokenValues = decodedString.Split(':');
-                    var membershipService = request.GetMembershipService();
+                    var membershipCtx = jwtAuthManager.GetPrincipal(tokens);
 
-                    var membershipCtx = membershipService.ValidateUser(tokenValues[0], tokenValues[1]);
-                    if (membershipCtx.User != null)
+                    if (membershipCtx.Claims != null)
                     {
-                        IPrincipal principle = membershipCtx.Principle;
-                        Thread.CurrentPrincipal = principle;
+
+                        IPrincipal principle = membershipCtx;
+                        Thread.CurrentPrincipal = principle;                       
+
                         HttpContext.Current.User = principle;
                     }
                     else //for unauthorized access
@@ -47,7 +47,8 @@ namespace HomeCinema.Infrastructure.MessageHandlers
                         tsc.SetResult(response);
                         return tsc.Task;
                     }
-                }else
+                }
+                else
                 {
                     var response = new HttpResponseMessage(HttpStatusCode.Forbidden);
                     var tsc = new TaskCompletionSource<HttpResponseMessage>();

@@ -12,10 +12,12 @@ using AutoMapper;
 using HomeCinema.Models;
 using HomeCinema.Infrastructure.Extensions;
 using HomeCinema.Data.Extensions;
+using HomeCinema.Services.Auth;
 
 namespace HomeCinema.Controllers 
 {
-    [Authorize(Roles = "admin")]
+    // [Authorize(Roles = "admin")]
+    
     [RoutePrefix("api/customers")]   
     public class CustomerController : ApiControllerBase
     {

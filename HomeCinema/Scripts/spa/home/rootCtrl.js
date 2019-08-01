@@ -1,4 +1,5 @@
-﻿(function (app) {
+﻿
+(function (app) {
     'use strict';
 
     app.controller('rootCtrl', rootCtrl);
@@ -15,15 +16,17 @@
         function displayUserInfo() {
             $scope.userData.isUserLoggedIn = membershipService.isUserLoggedIn();
 
-            if ($scope.userData.isUserLoggedIn) {
-                $scope.username = $rootScope.repository.loggedUser.username;
+            if ($scope.userData.isUserLoggedIn) {             
+                
+                $scope.username = $rootScope.repository.loggedUser.username; //$rootScope.repository.loggedUser.username;
             }
         }
 
         function logout() {
-            membershipService.removeCredentials();
-            $location.path('#/');
-            $scope.userData.displayUserInfo();
+            membershipService.removeJWTToken();
+            $location.path('#/');          
+            $scope.userData.username = '';
+           $scope.userData.displayUserInfo();
         }
 
         $scope.userData.displayUserInfo();

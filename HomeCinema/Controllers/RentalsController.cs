@@ -4,6 +4,7 @@ using HomeCinema.Data.Repositories;
 using HomeCinema.Entities;
 using HomeCinema.Infrastructure.Core;
 using HomeCinema.Models;
+using HomeCinema.Services.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ using System.Web.Http;
 
 namespace HomeCinema.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
+    [jwtAuthentication]
     [RoutePrefix("api/rentals")]
     public class RentalsController : ApiControllerBase
     {

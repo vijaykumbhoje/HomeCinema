@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 
-namespace HomeCinema.Auth
+namespace HomeCinema.Services.Auth
 {
     public static class jwtAuthManager
     {
         //https://code-adda.com/2019/01/jwt-authentication-with-asp-net-web-api/
         public const string secretkey = "B56173EDC8121F7B58712F11A66A815FE9389252999A779231ED697A900B8358";
         
-        public static string GenerateAwtToken(string Username, int expiryInMinutes=10)
+        public static string GenerateJwtToken(string Username, int expiryInMinutes=10)
         {
             var Symmetric_Key = Convert.FromBase64String(secretkey);
             var token_Handler = new JwtSecurityTokenHandler();
@@ -22,7 +19,8 @@ namespace HomeCinema.Auth
             var securityTokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, Username)
+                    new Claim(ClaimTypes.Name, Username),
+                    new Claim(ClaimTypes.Role, "Admin")
                 }),
                 Expires = now.AddMinutes(Convert.ToInt32(expiryInMinutes)),
 
@@ -42,7 +40,7 @@ namespace HomeCinema.Auth
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
 
-                if (jwtToken == null)
+                if (jwtToken == null) 
                     return null;
 
                 var symmetricKey = Convert.FromBase64String(secretkey);

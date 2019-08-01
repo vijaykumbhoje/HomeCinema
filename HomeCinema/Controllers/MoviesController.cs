@@ -5,6 +5,7 @@ using HomeCinema.Entities;
 using HomeCinema.Infrastructure.Core;
 using HomeCinema.Infrastructure.Extensions;
 using HomeCinema.Models;
+using HomeCinema.Services.Auth;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,8 @@ using System.Web.Http;
 
 namespace HomeCinema.Controllers
 {
-    [Authorize(Roles = "Admin")]
+
+    [Authorize]
     [RoutePrefix("api/movies")]
     public class MoviesController : ApiControllerBase
     {
@@ -100,6 +102,7 @@ namespace HomeCinema.Controllers
         }
 
         [HttpPost]
+        [jwtAuthentication]
         [Route("add")]
         public HttpResponseMessage Add(HttpRequestMessage request, MovieViewModel movieVm)
         {

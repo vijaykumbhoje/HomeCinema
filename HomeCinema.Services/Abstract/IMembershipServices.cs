@@ -17,6 +17,8 @@ namespace HomeCinema.Services.Abstract
 
         User GetUser(int userId);
 
-        List<Role> GetUserRoles(string Username);    
+        List<Role> GetUserRoles(string Username);
+
+        bool CheckUser(string username, string password);
     }
 }

@@ -59,7 +59,7 @@
         // handle page refreshes
         $rootScope.repository = $cookieStore.get('repository') || {};
         if ($rootScope.repository.loggedUser) {
-            $http.defaults.headers.common['Authorization'] = $rootScope.repository.loggedUser.authdata;
+            $http.defaults.headers.common['Authorization'] = "Bearer " + $rootScope.repository.loggedUser.authdata;
         }
             
         $(document).ready(function () {

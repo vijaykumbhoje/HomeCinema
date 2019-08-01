@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
-namespace HomeCinema.Auth
+namespace HomeCinema.Services.Auth
 {
     public class AuthFailureResult : IHttpActionResult
     {

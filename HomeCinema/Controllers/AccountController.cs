@@ -5,6 +5,7 @@ using HomeCinema.Infrastructure.Core;
 using HomeCinema.Models;
 using HomeCinema.Services;
 using HomeCinema.Services.Abstract;
+using HomeCinema.Services.Auth;
 using HomeCinema.Services.Utilities;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace HomeCinema.Controllers
 {
-    [Authorize(Roles ="Admin")]
+
+   
     [RoutePrefix("api/account")]
     public class AccountController : ApiControllerBase
     {
@@ -28,10 +31,32 @@ namespace HomeCinema.Controllers
             _membershipService = membershipServices;
         }
 
-        [AllowAnonymous]
+       [AllowAnonymous]
         [Route("authenticate")]
         [HttpPost]
-        public HttpResponseMessage Login(HttpRequestMessage request, LoginViewModel user)
+        public HttpResponseMessage Login(HttpRequestMessage request, LoginViewModel loginVm)
+        {
+            HttpResponseMessage response = null;
+
+            if (_membershipService.CheckUser(loginVm.Username, loginVm.Password))
+            {
+                string jString = new JavaScriptSerializer().Serialize(new
+                {   token = jwtAuthManager.GenerateJwtToken(loginVm.Username),
+                    userName = loginVm.Username
+                }); 
+                response = request.CreateResponse(HttpStatusCode.OK,jString);
+            }
+            else
+            {
+                response = request.CreateResponse(HttpStatusCode.Unauthorized, "Invalid Request");
+            }
+            return response;
+        }
+
+        [AllowAnonymous]
+       // [Route("authenticate")]
+        [HttpPost]
+        public HttpResponseMessage Login1(HttpRequestMessage request, LoginViewModel user)
         {
             return CreateHttpResponse(request, () => 
             {

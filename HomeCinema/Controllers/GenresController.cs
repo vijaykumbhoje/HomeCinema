@@ -11,10 +11,11 @@ using System.Net.Http;
 using AutoMapper;
 using System.Net;
 using System.Web.Http;
+using HomeCinema.Services.Auth;
 
 namespace HomeCinema.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    
     [RoutePrefix("api/genres")]
     public class GenresController : ApiControllerBase
     {
