@@ -17,6 +17,7 @@ using HomeCinema.Services;
 
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace HomeCinema.Tests.Controller
 {
@@ -53,10 +54,10 @@ namespace HomeCinema.Tests.Controller
             //Act
             var response = controller.Login(controller.Request, loginVm);
             var responseString = GetResponseString(response);
-            JObject obj = JObject.Parse(responseString.Result);
-
+            var resultString = responseString.Result.Replace(@"\", "").Trim('"');
+            JObject obj = JObject.Parse(resultString);
             //Assert
-            Assert.IsTrue((bool)obj["success"]);
+            Assert.IsNotNull(obj["token"]);
         }
         
         [TestMethod]
@@ -79,10 +80,10 @@ namespace HomeCinema.Tests.Controller
             //Act
             var response = controller.Login(controller.Request, loginVm);
             var responseString = GetResponseString(response);
-            JObject obj = JObject.Parse(responseString.Result);
+            var resultString = responseString.Result.Replace(@"\", "").Trim('"');   
 
             //Assert
-            Assert.IsFalse((bool)obj["success"]);
+            Assert.AreEqual(resultString,"Invalid Request");
 
         }
 

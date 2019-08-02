@@ -99,7 +99,6 @@
     <Compile Include="Controller\StockControllerTest.cs" />
     <Compile Include="Services\ServiceTests.cs" />
     <Compile Include="Controller\CustomerControllerTest.cs" />
-    <Compile Include="Helper\ControllerActionSelector.cs" />
     <Compile Include="Helper\DataInitializer.cs" />
     <Compile Include="Helper\CustomerComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
